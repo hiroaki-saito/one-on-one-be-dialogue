@@ -1,0 +1,30 @@
+// hero/hero.proto
+syntax = "proto3";
+
+package dialogues;
+
+
+service DialoguesService {
+  rpc FindOne (DialoguesById) returns (DialoguesSingleReply) {}
+  rpc FindAll (DialoguesById) returns (DialoguesAllReply) {}
+}
+
+message DialoguesById {
+  int32 id = 1;
+}
+
+message DialoguesSingleReply {
+  Dialogue dialogue = 1;
+}
+
+message DialoguesAllReply {
+  repeated Dialogue dialogues = 1;
+}
+
+message Dialogue {
+  string id  = 1;
+  string date = 2;
+  string memo  = 3;
+  string boss_id  = 4;
+  string member_id  = 5;
+}
