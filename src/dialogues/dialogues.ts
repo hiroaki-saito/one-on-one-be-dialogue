@@ -2,42 +2,47 @@
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
 
-export const protobufPackage = "hero";
+export const protobufPackage = "dialogues";
 
-/** hero/hero.proto */
+/** dialogues/dialogues.proto */
 
-export interface HeroById {
+export interface DialoguesRequestById {
   id: number;
 }
 
-export interface Hero {
-  id: number;
-  name: string;
+export interface DialoguesSingleResponse {
+  id: string;
+  datetime: string;
+  memo: string;
+  bossId: string;
+  memberId: string;
 }
 
-export const HERO_PACKAGE_NAME = "hero";
+export const DIALOGUES_PACKAGE_NAME = "dialogues";
 
-export interface HeroesServiceClient {
-  findOne(request: HeroById): Observable<Hero>;
+export interface DialoguesServiceClient {
+  findOne(request: DialoguesRequestById): Observable<DialoguesSingleResponse>;
 }
 
-export interface HeroesServiceController {
-  findOne(request: HeroById): Promise<Hero> | Observable<Hero> | Hero;
+export interface DialoguesServiceController {
+  findOne(
+    request: DialoguesRequestById,
+  ): Promise<DialoguesSingleResponse> | Observable<DialoguesSingleResponse> | DialoguesSingleResponse;
 }
 
-export function HeroesServiceControllerMethods() {
+export function DialoguesServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = ["findOne"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcMethod("HeroesService", method)(constructor.prototype[method], method, descriptor);
+      GrpcMethod("DialoguesService", method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcStreamMethod("HeroesService", method)(constructor.prototype[method], method, descriptor);
+      GrpcStreamMethod("DialoguesService", method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const HEROES_SERVICE_NAME = "HeroesService";
+export const DIALOGUES_SERVICE_NAME = "DialoguesService";

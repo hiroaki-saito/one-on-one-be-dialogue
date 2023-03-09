@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { HeroService } from './dialogues.service';
+import { DialoguesService } from './dialogues.service';
 
 @Module({
-  providers: [HeroService],
+  providers: [DialoguesService],
 })
-export class HeroModule {}
+export class DialoguesModule {}
