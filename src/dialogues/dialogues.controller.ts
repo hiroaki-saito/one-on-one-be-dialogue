@@ -54,22 +54,16 @@ export class DialoguesController {
       },
     );
 
-    const dialogues: any = dialoguesAddRowDataPacket.map((data) => {
-      // NOTE: RowDataPacket {key: value}から
-      //　　　 {key: value}を取得するため、stringify→parseを行う
-      const convertedJson = JSON.stringify(data);
-      const convertedObject = JSON.parse(convertedJson);
-      return convertedObject;
-    });
+    const dialogues: DialoguesSingleResponse = dialoguesAddRowDataPacket.map(
+      (data) => {
+        // NOTE: RowDataPacket {key: value}から
+        //　　　 {key: value}を取得するため、stringify→parseを行う
+        const convertedJson = JSON.stringify(data);
+        const convertedObject = JSON.parse(convertedJson);
+        return convertedObject;
+      },
+    );
 
-    const test: DialoguesSingleResponse = {
-      id: '0000001',
-      datetime: '2023-03-06T05:52:44.000Z',
-      memo: 'テスト',
-      bossId: '0000100',
-      memberId: '0000200',
-    };
-
-    return test;
+    return dialogues[0];
   }
 }
